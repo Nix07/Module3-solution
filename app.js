@@ -19,7 +19,9 @@
 
 		ctrl.searchTerm = '';
 		ctrl.found = [];
+		ctrl.send = 0;
 		ctrl.sendRequest = function(){
+			ctrl.send = 1;
 			if(ctrl.searchTerm != ''){
 				var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
 

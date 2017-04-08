@@ -1,8 +1,9 @@
 <br><br><br>
-<ol>
+<ol ng-if="ctrl.found.length > 0">
   <li ng-repeat="item in ctrl.found">
-    <p style="font-weight: bold;">{{ item.name }}
+    <p style="font-weight: bold;"><span style="color: grey;">{{ item.short_name }}</span> {{ item.name }} <br> <span style="font-weight: normal;">{{ item.description }}</span>
     <button ng-click="ctrl.removeItem($index);" style="margin-left: 20px; font-weight: normal;">Don't want this one!</button>
     </p>
   </li>
-</ol> 
+</ol>
+<h3 ng-if="ctrl.found.length == 0 && ctrl.send == 1">Not Found</h3>
