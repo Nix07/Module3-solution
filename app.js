@@ -33,7 +33,6 @@
 		}
 
 		ctrl.removeItem = function(itemIndex){
-			console.log("HOP");
 			MenuSearchService.removeItem(itemIndex);
 		}
 	}
