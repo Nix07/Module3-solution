@@ -3,22 +3,38 @@
 
 	angular.module('NarrowItDownApp',[])
 	.controller('NarrowItDownController', NarrowItDownController)
-	.service('MenuSearchService', MenuSearchService);
+	.service('MenuSearchService', MenuSearchService)
+	.directive('foundItems', function(){
+		var ddo = {
+			templateUrl: 'shoppingList.html',
+		    
+		  };
+
+		return ddo;
+	});
 
 	NarrowItDownController.$inject = ['MenuSearchService'];
 	function NarrowItDownController(MenuSearchService) {
 		var ctrl = this;
 
 		ctrl.searchTerm = '';
+		ctrl.found = [];
 		ctrl.sendRequest = function(){
-			var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
+			if(ctrl.searchTerm != ''){
+				var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
 
-			promise.then(function(response){
-				//console.log(response.data);
-			})
-			.catch(function() {
-				console.log("Something went wrong!");
-			})
+				promise.then(function(response){
+					ctrl.found = response;
+				})
+				.catch(function() {
+					console.log("Something went wrong!");
+				});
+			}
+		}
+
+		ctrl.removeItem = function(itemIndex){
+			console.log("HOP");
+			MenuSearchService.removeItem(itemIndex);
 		}
 	}
 
@@ -38,12 +54,14 @@
 					if(menuItemDescription.toLowerCase().indexOf(searchTerm) !== -1)
 						found.push(response.data.menu_items[i]);
 				}
-				for( var i =0;i<found.length;i++)
-					console.log("Item : " + found[i].name);
-				return response;
+				return found;
 			});
 
 		}
-	}
+
+		service.removeItem = function (itemIndex) {
+    		found.splice(itemIndex, 1);
+    	}
+  };
 
 })();

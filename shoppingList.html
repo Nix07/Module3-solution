@@ -1,0 +1,8 @@
+<br><br><br>
+<ol>
+  <li ng-repeat="item in ctrl.found">
+    <p style="font-weight: bold;">{{ item.name }}
+    <button ng-click="ctrl.removeItem($index);" style="margin-left: 20px; font-weight: normal;">Don't want this one!</button>
+    </p>
+  </li>
+</ol> 
